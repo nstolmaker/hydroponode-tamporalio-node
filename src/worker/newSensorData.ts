@@ -1,6 +1,7 @@
 import { Connection, WorkflowClient } from '@temporalio/client';
 import { SensorDataType } from '../interfaces/dataObjects';
-import { Blocked, Example, PlantRobot, ManageLights } from '../interfaces/workflows';
+import { PlantRobot } from '../interfaces/workflows';
+import { readSensor } from '../activities/readSensor'
 
 async function run() {
   // Connect to localhost with default ConnectionOptions,
@@ -13,19 +14,13 @@ async function run() {
   // Basically it says, make a new instance of the workflow called 'readSensor.ts', which will use the taskQueue called 'sensorData'
   // 
   console.log("[worker/newSensorData.ts] going to start lights workflow ")
-  const sensorDataForTesting:SensorDataType = {
-    battery: 1142,
-    temp: 1178.25999999999999,
-    moisture: 1152,
-    light: 24
-   }
+  const sensorDataForTesting:SensorDataType = await readSensor()
   const workflowStubClient = client.stub<PlantRobot>('plantRobot', { taskQueue: 'sensorData' })
-  const test = await workflowStubClient.execute(sensorDataForTesting)
-  console.log("[worker/newSensorData.ts] execution returned: ", test)
-  return test
+  const result = await workflowStubClient.execute(sensorDataForTesting)
+  console.log("[worker/newSensorData.ts] execution returned: ", result)
+  return result
+
   // const newRun = await workflowStubClient.signal.runWithNewData(sensorDataForTesting)
-
-
   // return await sensorData.result();
   // sensorData.signalWithStart("runWithNewData", [sensorDataForTesting], [])
   // return newRun
