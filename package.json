@@ -5,7 +5,7 @@
     "build": "tsc --build src/worker/tsconfig.json",
     "build.watch": "tsc --build --watch src/worker/tsconfig.json",
     "start": "node lib/worker",
-    "get.data": "node lib/worker/signalNewSensorData"
+    "get.data": "node lib/worker/newSensorData"
   },
   "devDependencies": {
     "@tsconfig/node14": "^1.0.0",
