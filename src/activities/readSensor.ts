@@ -5,7 +5,7 @@ export async function readSensor(): Promise<SensorDataType> {
     return {
      battery: 42,
      temp: 78.25999999999999,
-     moisture: 52,
+     moisture: 2,
      light: 24
     }
   // }

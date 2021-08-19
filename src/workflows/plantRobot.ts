@@ -1,5 +1,6 @@
 import { PlantRobot } from '../interfaces/workflows'
 import { manageLights } from '@activities/manageLights'
+import { manageWater } from '@activities/manageWater'
 import { SensorDataType } from '../interfaces/dataObjects';
 
 const signals = {
@@ -21,6 +22,9 @@ async function main(sensorData:SensorDataType): Promise<string> {
 
     const lightsStatus = await manageLights(sensorData)
     console.log("[workflows/plantRobot] returned with ", lightsStatus)
+
+    const waterStatus = await manageWater(sensorData, 7)
+    console.log("[workflows/plantRobot:manageWater] returned with status: ", waterStatus)
 
     return Promise.resolve("[workflows/plantRobot] seems to have finished")
   } catch (err) {
