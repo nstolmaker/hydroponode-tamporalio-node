@@ -3,14 +3,8 @@ import { SensorDataType } from './dataObjects';
 export interface Example extends Workflow {
     main(name: string): Promise<string>;
 }
-export interface NoahMain extends Workflow {
+export interface PlantRobot extends Workflow {
     main(object: SensorDataType): Promise<string>;
-}
-export interface ReadSensor extends Workflow {
-    main(): Promise<SensorDataType>;
-    signals: {
-        runWithNewData(object: SensorDataType): void;
-    };
 }
 export interface ManageLights extends Workflow {
     main(): Promise<void>;

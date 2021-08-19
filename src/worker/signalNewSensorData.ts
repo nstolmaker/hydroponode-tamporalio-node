@@ -1,6 +1,6 @@
 import { Connection, WorkflowClient } from '@temporalio/client';
 import { SensorDataType } from '../interfaces/dataObjects';
-import { Blocked, Example, ReadSensor, NoahMain, ManageLights } from '../interfaces/workflows';
+import { Blocked, Example, PlantRobot, ManageLights } from '../interfaces/workflows';
 
 async function run() {
   // Connect to localhost with default ConnectionOptions,
@@ -19,8 +19,7 @@ async function run() {
     moisture: 1152,
     light: 24
    }
-  const workflowStubClient = client.stub<NoahMain>('noahMain', { taskQueue: 'sensorData' })
-  // const runId = await workflowStubClient.start()
+  const workflowStubClient = client.stub<PlantRobot>('plantRobot', { taskQueue: 'sensorData' })
   const test = await workflowStubClient.execute(sensorDataForTesting)
   console.log("[worker/signalNewSensorData.ts] execution returned: ", test)
   return test
